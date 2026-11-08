@@ -406,18 +406,19 @@ button.btn { border: 0; cursor: pointer; }
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   gap: 2rem;
 }
-.frame {
-  display: grid;
-  place-items: center;
-  padding: 1rem;
-  border: 2px dashed rgba(43, 29, 19, 0.6);
-  background-color: var(--kraft-lt);
-  background-image: repeating-linear-gradient(90deg, rgba(95, 58, 22, 0.1) 0 2px, transparent 2px 9px);
-  aspect-ratio: 4 / 5;
-  rotate: var(--tilt, 0deg);
-  font: 400 1.3rem/1.3 var(--hand);
-  text-align: center;
+.frames { gap: 2.6rem 2rem; }
+.art-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
 }
+.art-btn:focus-visible { outline: 3px solid var(--royal); outline-offset: 3px; }
+.result.art-view { width: min(94vw, 36rem); }
+.art-stage { padding: 0 1.2rem 1.2rem; }
+.art-stage img { display: block; width: 100%; height: auto; max-height: 76vh; object-fit: contain; }
 
 /* ---------- contact tags ---------- */
 .tags { display: flex; flex-wrap: wrap; gap: 1.6rem; margin: 0; padding: 0; list-style: none; }

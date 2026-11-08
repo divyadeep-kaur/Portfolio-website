@@ -241,17 +241,42 @@
     </div>
   </section>
 
-  <!-- Craft table (placeholders until the artwork photos are added) -->
+  <!-- Craft table: artwork, each opens larger in a popup -->
   <section id="craft" class="desk">
     <div class="wrap">
       <h2>The craft table</h2>
-      <p class="lede">I make things by hand: cardboard builds, drawings and pieces from waste. Photos of my work are on the way.</p>
+      <p class="lede">I draw and paint, and I make things by hand from cardboard and waste. Here is some of my artwork. Tap a piece to see it bigger.</p>
       <div class="frames">
-        <div class="frame" style="--tilt:-1.5deg">Artwork coming soon</div>
-        <div class="frame" style="--tilt:1deg">Artwork coming soon</div>
-        <div class="frame" style="--tilt:-0.5deg">Artwork coming soon</div>
+        <figure class="polaroid art" style="--tilt:-1.5deg;--ar:3 / 4">
+          <button class="art-btn" type="button" aria-label="View larger: Divyadeep beside her poster painting about Guru Ravidas Ji, holding a certificate">
+            <img src="images/art-poster.jpg" width="1100" height="1467" alt="Divyadeep standing beside her colourful poster painting about Guru Ravidas Ji and equality, holding a DAV University certificate of achievement" loading="lazy">
+          </button>
+        </figure>
+        <figure class="polaroid art" style="--tilt:1.2deg;--ar:3 / 4;--tape-tilt:5deg">
+          <button class="art-btn" type="button" aria-label="View larger: painting of a woman in traditional dress holding a lotus">
+            <img src="images/art-lotus.jpg" width="1100" height="1467" alt="Painting of a woman in profile wearing a gold-patterned veil and jewellery, holding a pink lotus against a black background" loading="lazy">
+          </button>
+        </figure>
+        <figure class="polaroid art" style="--tilt:-0.8deg;--ar:3 / 4">
+          <button class="art-btn" type="button" aria-label="View larger: painting of a peacock in front of a pink palace arch">
+            <img src="images/art-peacock.jpg" width="1100" height="1467" alt="Watercolour painting of a blue peacock framed by a pink arch and green leaves, with a domed pavilion behind" loading="lazy">
+          </button>
+        </figure>
+        <figure class="polaroid art" style="--tilt:1.6deg;--ar:3 / 4;--tape-tilt:6deg">
+          <button class="art-btn" type="button" aria-label="View larger: painting of a bunch of sunflowers on a black background">
+            <img src="images/art-sunflowers.jpg" width="1100" height="1467" alt="Painting of a bunch of three sunflowers tied with twine, with white buds and green leaves on a black background" loading="lazy">
+          </button>
+        </figure>
       </div>
     </div>
+
+    <dialog class="result art-view" id="art-view" aria-label="Artwork">
+      <div class="result-head">
+        <p class="sub">Artwork</p>
+        <button class="btn" type="button" id="close-art">Close</button>
+      </div>
+      <div class="art-stage"><img id="art-large" src="" alt=""></div>
+    </dialog>
   </section>
 
   <!-- Contact -->
@@ -299,6 +324,24 @@
     dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
   })();
 
+  // Artwork popup: a tap on a piece shows it larger.
+  (function () {
+    var dlg = document.getElementById("art-view");
+    var big = document.getElementById("art-large");
+    var closeBtn = document.getElementById("close-art");
+    if (!dlg || !big || !closeBtn) return;
+    document.querySelectorAll(".art-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var small = btn.querySelector("img");
+        big.src = small.src;
+        big.alt = small.alt;
+        if (dlg.showModal) { dlg.showModal(); } else { dlg.setAttribute("open", ""); }
+      });
+    });
+    closeBtn.addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  })();
+
   // Scroll animations: pieces settle into place when they come into view.
   // Skipped for visitors who prefer reduced motion; nothing is hidden if this does not run.
   (function () {
@@ -312,7 +355,7 @@
       ".card": "r-pin",
       ".sticker": "r-pop",
       ".scrap .polaroid": "r-slap",
-      ".frame": "r-slap",
+      ".art": "r-slap",
       ".tags li": "r-swing"
     };
     Object.keys(kinds).forEach(function (sel) {
