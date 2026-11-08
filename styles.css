@@ -416,7 +416,52 @@ button.btn { border: 0; cursor: pointer; }
 .foot { padding-block: 1rem 3rem; font-size: 0.95rem; }
 .foot p { margin: 0; }
 
-/* ---------- narrow screens and motion ---------- */
+/* ---------- motion ---------- */
+/* Hero: once the letters have dropped, the photos land and the stamp is pressed on. */
+@keyframes land { from { transform: var(--land); } }
+@keyframes thud { from { transform: scale(1.9) rotate(-10deg); opacity: 0; } 65% { opacity: 1; } }
+.collage .big {
+  --land: translateY(-44px) rotate(-9deg) scale(1.06);
+  animation: land 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1) 0.35s backwards;
+}
+.collage .small {
+  --land: translateY(-52px) rotate(10deg) scale(1.06);
+  animation: land 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1) 0.6s backwards;
+}
+.stamp { animation: thud 0.45s cubic-bezier(0.2, 0.8, 0.2, 1.2) 1.2s backwards; }
+
+/* Below the fold: pieces settle into place as they scroll into view.
+   The script adds .reveal and .in, so without it nothing moves and everything stays visible. */
+@keyframes settle { from { transform: var(--from, none); } }
+@keyframes draw { from { background-size: 0 0.3em; } }
+.reveal:not(.in) { transform: var(--from, none); }
+.reveal.in { animation: settle 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2) var(--d, 0s) backwards; }
+.reveal:nth-child(2) { --d: 0.12s; }
+.reveal:nth-child(3) { --d: 0.24s; }
+.reveal:nth-child(4) { --d: 0.36s; }
+.reveal:nth-child(5) { --d: 0.48s; }
+.reveal:nth-child(6) { --d: 0.6s; }
+.r-pull { --from: translateX(-46px) rotate(-2deg); }
+.r-pin { --from: translateY(-34px) rotate(-5deg); }
+.r-pop { --from: scale(0.4) rotate(-14deg); }
+.r-slap { --from: translateY(-40px) rotate(-7deg) scale(1.05); }
+.r-swing { --from: rotate(-16deg); transform-origin: 1.6rem 50%; }
+.draw:not(.in) { background-size: 0 0.3em; }
+.draw.in { animation: draw 0.9s ease-out 0.1s backwards; }
+
+/* Hover: pieces straighten and lift a little. */
+.card, .ticket-wrap { transition: rotate 0.25s, translate 0.25s; }
+.card:hover, .ticket-wrap:hover { rotate: 0deg; translate: 0 -4px; }
+.sticker, .tags li { transition: rotate 0.2s, scale 0.2s; }
+.sticker:hover, .tags li:hover { rotate: 0deg; scale: 1.05; }
+
+/* Result popup */
+@keyframes pop-in { from { transform: translateY(24px) rotate(-2deg) scale(0.96); opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } }
+.result[open] { animation: pop-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.15); }
+.result[open]::backdrop { animation: fade-in 0.3s ease-out; }
+
+/* ---------- narrow screens and reduced motion ---------- */
 @media (max-width: 52rem) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); }
   .stamp { width: 5.6rem; outline-offset: -8px; }
@@ -424,6 +469,9 @@ button.btn { border: 0; cursor: pointer; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .chip { animation: none; }
-  .chip, .polaroid, .btn { transition: none; }
+  .chip, .collage .polaroid, .stamp, .reveal.in, .draw.in, .result[open] { animation: none; }
+  .result[open]::backdrop { animation: none; }
+  .reveal:not(.in) { transform: none; }
+  .draw:not(.in) { background-size: 100% 0.3em; }
+  .chip, .polaroid, .btn, .card, .ticket-wrap, .sticker, .tags li, .stamp { transition: none; }
 }

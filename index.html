@@ -242,6 +242,34 @@
     closeBtn.addEventListener("click", function () { dlg.close(); });
     dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
   })();
+
+  // Scroll animations: pieces settle into place when they come into view.
+  // Skipped for visitors who prefer reduced motion; nothing is hidden if this does not run.
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    var kinds = {
+      ".ticket-wrap": "r-pull",
+      ".card": "r-pin",
+      ".sticker": "r-pop",
+      ".scrap .polaroid": "r-slap",
+      ".frame": "r-slap",
+      ".tags li": "r-swing"
+    };
+    Object.keys(kinds).forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(function (el) { el.classList.add("reveal", kinds[sel]); });
+    });
+    document.querySelectorAll("h2").forEach(function (el) { el.classList.add("draw"); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
+    document.querySelectorAll(".reveal, .draw").forEach(function (el) { io.observe(el); });
+  })();
 </script>
 </body>
 </html>
