@@ -220,7 +220,14 @@ button.btn { border: 0; cursor: pointer; }
 .sheet.alt { clip-path: var(--torn-b); }
 .desk { padding-block: 4.6rem; }
 .about { padding-block: 0 4.6rem; }
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 0.8fr);
+  gap: 2.5rem 3.5rem;
+  align-items: center;
+}
 .about-card { max-width: 46rem; }
+.about-photo { width: min(100%, 18rem); justify-self: center; }
 .about-card p + p { margin-top: 28px; }
 
 /* ---------- education path ---------- */
@@ -512,7 +519,7 @@ button.btn { border: 0; cursor: pointer; }
 /* ---------- narrow screens and reduced motion ---------- */
 @media (max-width: 52rem) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); }
-  .edu { grid-template-columns: minmax(0, 1fr); }
+  .edu, .about-grid { grid-template-columns: minmax(0, 1fr); }
   .stamp { width: 5.6rem; outline-offset: -8px; }
   .stamp b { font-size: 1.6rem; }
 }
