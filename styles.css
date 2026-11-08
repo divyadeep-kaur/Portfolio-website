@@ -352,6 +352,14 @@ button.btn { border: 0; cursor: pointer; }
 }
 .card h3 { margin: 0; font: 400 1.5rem/28px var(--display); }
 .card p { max-width: 62ch; margin: 0; }
+.card .shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 14px 0;
+  border: 1px solid rgba(70, 40, 10, 0.25);
+  box-shadow: 0 6px 14px -6px rgba(70, 40, 10, 0.45);
+}
 .card a {
   color: var(--pen);
   font: 700 1.1rem/28px var(--hand);
