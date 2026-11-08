@@ -124,8 +124,10 @@
     <div class="wrap">
       <h2>Projects</h2>
       <p class="lede">Things I have built.</p>
-      <div class="cards">
-        <article class="card wide" style="--tilt:-0.4deg">
+      <div class="carousel" aria-roledescription="carousel" aria-label="Projects">
+        <button class="car-btn prev" type="button" aria-label="Previous project">&#8592;</button>
+        <div class="cards" tabindex="0">
+        <article class="card" style="--tilt:-0.4deg">
           <h3>FocusForge AI</h3>
           <img class="shot" src="images/focusforge.jpg" alt="FocusForge AI landing page with a 25 minute focus timer, task list and level badge" loading="lazy">
           <p>An AI-powered productivity app with a Pomodoro timer, a task manager and a smart tab manager. Google's built-in AI APIs suggest tasks and summarise content. Built with React (Next UI) and Chrome Extension APIs, with state management that keeps timers, tasks and tabs in sync in real time.</p>
@@ -147,7 +149,10 @@
           <p>An AI-powered platform that detects and maps stray dogs in real time, to help communities with public safety and animal welfare.</p>
           <a href="https://github.com/divyadeep-kaur/Pawguard-AI" target="_blank" rel="noopener">github.com/divyadeep-kaur/Pawguard-AI</a>
         </article>
+        </div>
+        <button class="car-btn next" type="button" aria-label="Next project">&#8594;</button>
       </div>
+      <div class="car-dots" role="tablist" aria-label="Choose project"></div>
     </div>
   </section>
 
@@ -375,6 +380,50 @@
       });
     }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
     document.querySelectorAll(".reveal, .draw").forEach(function (el) { io.observe(el); });
+  })();
+
+  (function () {
+    var track = document.querySelector(".carousel .cards");
+    if (!track) return;
+    var cards = Array.prototype.slice.call(track.children);
+    var dots = document.querySelector(".car-dots");
+    var prev = document.querySelector(".car-btn.prev");
+    var next = document.querySelector(".car-btn.next");
+    cards.forEach(function (card, i) {
+      card.classList.add("in");
+      var d = document.createElement("button");
+      d.type = "button";
+      d.setAttribute("role", "tab");
+      d.setAttribute("aria-label", "Project " + (i + 1) + " of " + cards.length);
+      d.addEventListener("click", function () { go(i); });
+      dots.appendChild(d);
+    });
+    function current() {
+      var w = cards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0);
+      return Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / w)));
+    }
+    function go(i) {
+      i = Math.max(0, Math.min(cards.length - 1, i));
+      track.scrollTo({ left: cards[i].offsetLeft - track.offsetLeft - parseFloat(getComputedStyle(track).paddingLeft), behavior: "smooth" });
+    }
+    function sync() {
+      var c = current();
+      Array.prototype.forEach.call(dots.children, function (d, i) {
+        d.setAttribute("aria-selected", i === c ? "true" : "false");
+        d.classList.toggle("on", i === c);
+      });
+      prev.disabled = c === 0;
+      next.disabled = c === cards.length - 1;
+    }
+    prev.addEventListener("click", function () { go(current() - 1); });
+    next.addEventListener("click", function () { go(current() + 1); });
+    track.addEventListener("scroll", function () { window.requestAnimationFrame(sync); }, { passive: true });
+    track.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(current() + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(current() - 1); }
+    });
+    window.addEventListener("resize", sync);
+    sync();
   })();
 </script>
 </body>

@@ -314,11 +314,55 @@ button.btn { border: 0; cursor: pointer; }
 .t-royal { --stub-bg: var(--royal); --stub-fg: var(--paper-lt); }
 
 /* ---------- project index cards ---------- */
+.carousel { position: relative; }
 .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-  gap: 2.6rem 2rem;
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 1.6rem 0.9rem 2.2rem;
+  margin-inline: -0.9rem;
 }
+.cards::-webkit-scrollbar { display: none; }
+.cards:focus-visible { outline: 2px dashed var(--pen); outline-offset: 4px; }
+.cards > .card { flex: 0 0 100%; scroll-snap-align: center; min-width: 0; }
+.car-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 2.8rem;
+  height: 2.8rem;
+  translate: 0 -50%;
+  border: 2px solid var(--pen);
+  border-radius: 50%;
+  background: var(--paper-lt);
+  color: var(--pen);
+  font: 700 1.3rem/1 var(--hand);
+  cursor: pointer;
+  box-shadow: 0 4px 10px -4px rgba(70, 40, 10, 0.5);
+}
+.car-btn.prev { left: -1.4rem; }
+.car-btn.next { right: -1.4rem; }
+.car-btn:disabled { opacity: 0.35; cursor: default; }
+.car-dots { display: flex; justify-content: center; gap: 0.7rem; margin-top: 0.4rem; }
+.car-dots button {
+  width: 0.8rem;
+  height: 0.8rem;
+  padding: 0;
+  border: 2px solid var(--pen);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.car-dots button.on { background: var(--pen); }
+@media (max-width: 700px) {
+  .car-btn { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .cards { scroll-behavior: auto; } }
 .card {
   position: relative;
   padding: 28px 1.5rem 28px 3.4rem;
@@ -329,7 +373,6 @@ button.btn { border: 0; cursor: pointer; }
   font-size: 1.0625rem;
   line-height: 28px;
 }
-.card.wide { grid-column: 1 / -1; }
 .card::before {
   content: "";
   position: absolute;
