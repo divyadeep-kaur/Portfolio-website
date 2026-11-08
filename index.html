@@ -17,9 +17,11 @@
   <header class="hero">
     <div class="wrap">
       <nav class="tape-nav" aria-label="Sections">
+        <a href="#about">About</a>
         <a href="#hackathons">Hackathons</a>
         <a href="#projects">Projects</a>
-        <a href="#about">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
         <a href="#craft">Craft table</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -60,6 +62,18 @@
       </div>
     </div>
   </header>
+
+  <!-- About -->
+  <section id="about" class="desk about">
+    <div class="wrap">
+      <h2>About me</h2>
+      <article class="card about-card" style="--tilt:-0.5deg">
+        <p>I'm Divyadeep, a second-year B.Tech student in Computer Science and AI at DAV University, Jalandhar, in Punjab.</p>
+        <p>I like turning an idea into something people can open and use. So far that has meant FocusForge AI, StockSense AI and PawGuard AI, a website for stray dogs, plus three hackathons, one of them a first runner-up finish.</p>
+        <p>Away from the screen I draw, and I make things by hand from cardboard and waste. I won a district-level drawing competition, and I have been Head Girl and a class representative, so leading a team and speaking in front of people feel natural to me. I also run a YouTube channel.</p>
+      </article>
+    </div>
+  </section>
 
   <!-- Hackathons -->
   <section id="hackathons" class="sheet-wrap">
@@ -128,8 +142,47 @@
     </div>
   </section>
 
+  <!-- Education -->
+  <section id="education" class="sheet-wrap">
+    <div class="sheet">
+      <div class="wrap">
+        <h2>Education</h2>
+        <p class="lede">Where I have studied, from school to university.</p>
+        <div class="edu">
+          <ol class="path">
+            <li class="stop">
+              <article class="slip" style="--tilt:-0.6deg">
+                <h3>AVJVM, Zira</h3>
+                <p class="when">Schooling up to Class 10</p>
+                <a href="https://www.instagram.com/avjvmsocietyzira/" target="_blank" rel="noopener">AVJVM on Instagram</a>
+              </article>
+            </li>
+            <li class="stop">
+              <article class="slip" style="--tilt:0.7deg">
+                <h3>DCM Group of Schools</h3>
+                <p class="when">Class 11 and 12</p>
+                <a href="https://dcmgroupofschools.com/" target="_blank" rel="noopener">School website</a>
+              </article>
+            </li>
+            <li class="stop now">
+              <article class="slip now" style="--tilt:-0.4deg">
+                <h3>DAV University, Jalandhar</h3>
+                <p class="when">B.Tech Computer Science and Engineering (AI), 2025 to 2029</p>
+                <p>Now in my second year. First-year CGPA: 9.0.</p>
+                <a href="https://davuniversity.org/" target="_blank" rel="noopener">University website</a>
+              </article>
+            </li>
+          </ol>
+          <figure class="polaroid edu-photo" style="--tilt:2.5deg;--ar:4 / 5">
+            <img src="images/campus.jpg" width="800" height="1011" alt="Divyadeep from behind with a black bow in her hair, facing the campus entrance sign" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Experience, skills, leadership -->
-  <section id="about" class="sheet-wrap">
+  <section id="experience" class="sheet-wrap">
     <div class="sheet alt">
       <div class="wrap">
         <h2>Experience and skills</h2>
@@ -174,8 +227,6 @@
         </div>
 
         <div class="scrap">
-          <figure class="polaroid" style="--tilt:-2.5deg;--ar:4 / 5">
-            <img src="images/campus.jpg" width="800" height="1011" alt="Divyadeep from behind with a black bow in her hair, facing the campus entrance sign" loading="lazy">          </figure>
           <figure class="polaroid" style="--tilt:2deg;--ar:2 / 3;--tape-tilt:6deg">
             <img src="images/jacket.jpg" width="717" height="1051" alt="Divyadeep in a grey puffer jacket and black jeans standing by a palm tree" loading="lazy">          </figure>
           <figure class="polaroid" style="--tilt:-1.5deg;--ar:2 / 3">
@@ -250,6 +301,8 @@
     if (reduce || !("IntersectionObserver" in window)) return;
     var kinds = {
       ".ticket-wrap": "r-pull",
+      ".stop": "r-pull",
+      ".edu-photo": "r-slap",
       ".card": "r-pin",
       ".sticker": "r-pop",
       ".scrap .polaroid": "r-slap",

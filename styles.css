@@ -84,7 +84,7 @@ h3 { text-wrap: balance; }
 .tape-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* ---------- hero ---------- */
-.hero { padding-block: 1.6rem 4.5rem; }
+.hero { padding-block: 1.6rem 3.5rem; }
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -219,6 +219,54 @@ button.btn { border: 0; cursor: pointer; }
 }
 .sheet.alt { clip-path: var(--torn-b); }
 .desk { padding-block: 4.6rem; }
+.about { padding-block: 0 4.6rem; }
+.about-card { max-width: 46rem; }
+.about-card p + p { margin-top: 28px; }
+
+/* ---------- education path ---------- */
+.edu {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.8fr);
+  gap: 2.5rem 3.5rem;
+  align-items: start;
+}
+.path { position: relative; display: grid; gap: 2rem; margin: 0; padding: 0 0 0 2.4rem; list-style: none; }
+.path::before {
+  content: "";
+  position: absolute;
+  top: 1.2rem;
+  bottom: 1.2rem;
+  left: 0.55rem;
+  border-left: 3px dashed rgba(31, 21, 13, 0.45);
+}
+.stop { position: relative; }
+.stop::before {
+  content: "";
+  position: absolute;
+  top: 1.1rem;
+  left: calc(-2.45rem + 1.5px);
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper-lt);
+}
+.stop.now::before { background: var(--royal); }
+.slip {
+  padding: 1.1rem 1.4rem 1.2rem;
+  background: var(--kraft-lt);
+  box-shadow: 0 2px 2px rgba(70, 40, 10, 0.25), 0 12px 18px -10px rgba(70, 40, 10, 0.45);
+  rotate: var(--tilt, 0deg);
+  transition: rotate 0.25s, translate 0.25s;
+}
+.slip:hover { rotate: 0deg; translate: 0 -3px; }
+.slip h3 { margin: 0; font: 400 1.4rem/1.25 var(--display); }
+.slip .when { margin: 0.2rem 0 0.4rem; color: var(--royal); font: 700 1.1rem/1.35 var(--hand); }
+.slip p:not(.when) { max-width: 46ch; margin: 0 0 0.4rem; }
+.slip a { color: var(--royal); font: 700 1.1rem/1.4 var(--hand); text-decoration: underline; text-underline-offset: 4px; }
+.slip.now { background: var(--royal); color: var(--paper-lt); }
+.slip.now .when, .slip.now a { color: var(--marigold); }
+.edu-photo { width: min(100%, 17rem); justify-self: center; }
 
 /* ---------- hackathon tickets ---------- */
 .tickets {
@@ -464,6 +512,7 @@ button.btn { border: 0; cursor: pointer; }
 /* ---------- narrow screens and reduced motion ---------- */
 @media (max-width: 52rem) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .edu { grid-template-columns: minmax(0, 1fr); }
   .stamp { width: 5.6rem; outline-offset: -8px; }
   .stamp b { font-size: 1.6rem; }
 }
@@ -473,5 +522,5 @@ button.btn { border: 0; cursor: pointer; }
   .result[open]::backdrop { animation: none; }
   .reveal:not(.in) { transform: none; }
   .draw:not(.in) { background-size: 100% 0.3em; }
-  .chip, .polaroid, .btn, .card, .ticket-wrap, .sticker, .tags li, .stamp { transition: none; }
+  .chip, .polaroid, .btn, .card, .ticket-wrap, .sticker, .tags li, .stamp, .slip { transition: none; }
 }
