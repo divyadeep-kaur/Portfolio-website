@@ -46,6 +46,7 @@ body {
 }
 
 img { max-width: 100%; }
+main { overflow-x: clip; }
 a { color: inherit; }
 a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 section[id] { scroll-margin-top: 1.5rem; }
