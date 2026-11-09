@@ -572,7 +572,7 @@ button.btn { border: 0; cursor: pointer; }
 /* ---------- narrow screens and reduced motion ---------- */
 @media (max-width: 52rem) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); }
-  .edu, .about-grid { grid-template-columns: minmax(0, 1fr); }
+  .edu, .about-grid, .cards { grid-template-columns: minmax(0, 1fr); }
   .stamp { width: 5.6rem; outline-offset: -8px; }
   .stamp b { font-size: 1.6rem; }
 }
